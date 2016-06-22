@@ -1,0 +1,68 @@
+
+
+<body>
+    <div class="container">
+         <div class="row" ng-controller="PostDetailController">
+            <div class="col-xs-12" ng-if="!showPost">
+                <h3>{{message}}</h3>
+            </div>
+            <div class="col-xs-12" ng-if="showPost" >
+                 <div class="col-lg-10 col-lg-offset-1" >
+                    <div class=" col-lg-offset-2 col-lg-9" >
+                      <div class="box">
+                        <div class="post"> 
+                        <h2 class="intro-text text-center">{{post.name}}
+                            </h2>
+                        <div class="body">
+                            <img class= "col-lg-offset-4"
+                                 ng-src={{post.image}} alt="">
+                            <p>{{post.content}}</p>
+                        </div>
+                          </div> 
+                            <!-- Custimor Comments-->
+                        <div class="col-lg-9">
+                            <hr/>
+                            <ul class="list-unstyled" ng-repeat="comment in post.comments | orderBy: date ">
+                                <li>
+                                    
+                                    <div class="commentblock">
+                                        <div>
+                                        <p2>{{comment.postedBy.firstname}} {{comment.postedBy.lastname}}, {{comment.updatedAt | date:'MMM. dd, yyyy'}}</p2>
+                                        </div>
+                                        <div>
+                                        <p>{{comment.comment}}</p>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                </li>
+                            </ul>
+                        </div>
+                           <!--Leave Comment Form-->
+                        <div class="col-lg-9" id="leave_comment">
+                        
+                        <form class="form-horizontal" name="commentForm" ng-submit="submitComment()" novalidate>                  
+                            <div class="form-group"  ng-class="{ 'has-error' : commentForm.comments.$error.required && !commentForm.comments.$pristine }">
+                                <label for="comments" class="col-sm-2 control-label">Your Comments</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" rows="12" name="comments"
+                                        ng-model="mycomment.comment" required>
+                                    </textarea>
+                                 <span ng-show="commentForm.comments.$error.required && !commentForm.comments.$pristine" class="help-block">Your comments are required.</span>
+                               </div>
+                            </div> 
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-warning btn-sm" ng-disabled="commentForm.$invalid">Add comment</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>  
+                 </div>
+            </div>
+         </div>
+				<p style="padding:10px;"></p>
+            </div>
+        </div>
+    </div>
+
+
